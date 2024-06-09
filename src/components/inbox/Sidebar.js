@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatItems from "./ChatIItems";
 import Modal from "./Modal";
 // import Blank from "./Blank";

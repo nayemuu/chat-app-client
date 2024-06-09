@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useSerchUserQuery } from "../../redux/features/inbox/inboxApi";
+import { useAddConversationMutation, useSerchUserQuery } from "../../redux/features/inbox/inboxApi";
 
 export default function Modal({ open, control }) {
     const [searchText, setSearchText] = useState("");
+    const [message, setMessage] = useState("");
     const [queryText, setQueryText] = useState("");
 
     const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
@@ -13,6 +14,14 @@ export default function Modal({ open, control }) {
         refetchOnMountOrArgChange: 0,
       }
     );
+
+    
+  const [addConversation, { isLoading: addConversationIsLoading }] = useAddConversationMutation();
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    addConversation({to:searchText, message:message})
+  }
 
     const doSearch = () => {
         // console.log("inside doSearch");
@@ -52,7 +61,7 @@ export default function Modal({ open, control }) {
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                         Send message
                     </h2>
-                    <form className="mt-8 space-y-6" action="#" method="POST">
+                    <form className="mt-8 space-y-6" onSubmit={handleSubmit} >
                         <input type="hidden" name="remember" value="true" />
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>
@@ -78,9 +87,11 @@ export default function Modal({ open, control }) {
                                     id="message"
                                     name="message"
                                     type="message"
-                                    required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
                                     placeholder="Message"
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    required
                                 />
                             </div>
                         </div>
