@@ -8,7 +8,6 @@ export default function ChatItem({conversation}) {
     let partnar = conversation.creator.email === email ? conversation.participant : conversation.creator;
 
     let avatar="https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg"
-    let lastMessage="bye"
     console.log("conversation = ", conversation);
 
 
@@ -32,7 +31,7 @@ export default function ChatItem({conversation}) {
                     </span>
                 </div>
                 <span className="block ml-2 text-sm text-gray-600">
-                    {lastMessage}
+                    {conversation.last_message}
                 </span>
             </div>
         </Link>

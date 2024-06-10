@@ -7,7 +7,7 @@ export const inboxApi = apiSlice.injectEndpoints({
 
     getConversation: builder.query({
       query: () => ({
-        url: '/inbox/conversation',
+        url: '/inbox/conversations',
       }),
     }),
 
@@ -34,7 +34,13 @@ export const inboxApi = apiSlice.injectEndpoints({
       }
     }),
 
+    getMessages: builder.query({
+      query: ({ id, limit, offset }) => ({ url: `/inbox/messages/${id}?limit=${limit}&offset=${offset}` }),
+    }),
+
+    
+
   })
 });
 
-export const { useSerchUserQuery, useAddConversationMutation, useGetConversationQuery } = inboxApi;
+export const { useSerchUserQuery, useAddConversationMutation, useGetConversationQuery, useGetMessagesQuery } = inboxApi;
