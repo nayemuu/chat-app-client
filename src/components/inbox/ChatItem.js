@@ -4,11 +4,11 @@ import moment from 'moment';
 export default function ChatItem({conversation}) {
     const localAuth = localStorage.getItem('auth');
     const {email} = JSON.parse(localAuth);
-    console.log("email = ", email);
+    // console.log("email = ", email);
     let partnar = conversation.creator.email === email ? conversation.participant : conversation.creator;
 
     let avatar="https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg"
-    console.log("conversation = ", conversation);
+    // console.log("conversation = ", conversation);
 
 
     return (

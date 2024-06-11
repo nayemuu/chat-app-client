@@ -7,11 +7,11 @@ export default function ChatItems() {
     const { isLoading, isError, isSuccess, isFetching, data, error, refetch } =
     useGetConversationQuery();
 
-    useEffect(()=>{
-        if(isSuccess && data){
-            console.log("data = ", data);
-        }
-    },[isSuccess, data])
+    // useEffect(()=>{
+    //     if(isSuccess && data){
+    //         console.log("data = ", data);
+    //     }
+    // },[isSuccess, data])
 
     return (
         <>

@@ -17,9 +17,9 @@ export const inboxApi = apiSlice.injectEndpoints({
       }),
     }),
 
-    addConversation: builder.mutation({
+    sendMessage: builder.mutation({
       query: (data) => ({
-        url: '/inbox/conversation',
+        url: '/inbox/message',
         method: 'POST',
         body: data
       }),
@@ -43,4 +43,4 @@ export const inboxApi = apiSlice.injectEndpoints({
   })
 });
 
-export const { useSerchUserQuery, useAddConversationMutation, useGetConversationQuery, useGetMessagesQuery } = inboxApi;
+export const { useSerchUserQuery, useSendMessageMutation, useGetConversationQuery, useGetMessagesQuery } = inboxApi;

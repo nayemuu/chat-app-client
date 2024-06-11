@@ -1,4 +1,25 @@
-export default function Options() {
+import { useState } from "react";
+import { useSendMessageMutation } from "../../../redux/features/inbox/inboxApi";
+
+export default function Options({message}) {
+    const [text, setText] = useState("")
+
+
+    const localAuth = localStorage.getItem('auth');
+    const {email} = JSON.parse(localAuth);
+    // console.log("email = ", email);
+    let partnar = message.sender.email === email ? message.receiver : message.sender;
+    // console.log("partnar = ", partnar.email);
+    
+    const [sendMessage, { isLoading: addConversationIsLoading }] = useSendMessageMutation();
+
+    const handleMessage = ()=>{
+        if(text.length && partnar.email){            
+            sendMessage({to:partnar.email, message:text.trim()})
+        }
+    }
+
+
     return (
         <div className="flex items-center justify-between w-full p-3 border-t border-gray-300">
             <input
@@ -6,9 +27,11 @@ export default function Options() {
                 placeholder="Message"
                 className="block w-full py-2 pl-4 mx-3 bg-gray-100 focus:ring focus:ring-violet-500 rounded-full outline-none focus:text-gray-700"
                 name="message"
+                value={text}
+                onChange={(e)=>setText(e.target.value)}
                 required
             />
-            <button type="submit">
+            <button onClick={handleMessage}>
                 <svg
                     className="w-5 h-5 text-gray-500 origin-center transform rotate-90"
                     xmlns="http://www.w3.org/2000/svg"

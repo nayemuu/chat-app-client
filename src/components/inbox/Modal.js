@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAddConversationMutation, useSerchUserQuery } from "../../redux/features/inbox/inboxApi";
+import { useAddConversationMutation, useSendMessageMutation, useSerchUserQuery } from "../../redux/features/inbox/inboxApi";
 
 export default function Modal({ open, control }) {
     const [searchText, setSearchText] = useState("");
@@ -16,11 +16,11 @@ export default function Modal({ open, control }) {
     );
 
     
-  const [addConversation, { isLoading: addConversationIsLoading }] = useAddConversationMutation();
+  const [sendMessage, { isLoading: addConversationIsLoading }] = useSendMessageMutation();
 
   const handleSubmit = (e)=>{
     e.preventDefault();
-    addConversation({to:searchText, message:message})
+    sendMessage({to:searchText.trim(), message:message.trim()})
   }
 
     const doSearch = () => {
