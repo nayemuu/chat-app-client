@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import PrivateRoute from "./PrivateRoute";
 import useLocalAuthCheck from "./hook/useLocalAuthCheck";
 import AuthRoute from "./AuthRoute";
+import Test from "./components/Test/Test";
 
 function App() {
     
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/register" element={<AuthRoute><Register /></AuthRoute>} />
                 <Route path="/inbox" element={<PrivateRoute><Conversation /></PrivateRoute>} />
                 <Route path="/inbox/:id" element={<PrivateRoute><Inbox /></PrivateRoute>} />
+                <Route path="test" element={<Test />} />
             </Routes>
         </Router>
     );
