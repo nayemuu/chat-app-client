@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSendMessageMutation } from "../../../redux/features/inbox/inboxApi";
 
 export default function Options({message}) {
@@ -11,13 +11,19 @@ export default function Options({message}) {
     let partnar = message.sender.email === email ? message.receiver : message.sender;
     // console.log("partnar = ", partnar.email);
     
-    const [sendMessage, { isLoading: addConversationIsLoading }] = useSendMessageMutation();
+    const [sendMessage, { isLoading: sendMessageIsLoading, isSuccess: sendMessageIsSuccess}] = useSendMessageMutation();
 
     const handleMessage = ()=>{
-        if(text.length && partnar.email){            
+        if(text.length && partnar.email && !sendMessageIsLoading){            
             sendMessage({to:partnar.email, message:text.trim()})
         }
     }
+
+    useEffect(()=>{
+        if(sendMessageIsSuccess){
+            setText("")
+        }
+    },[sendMessageIsSuccess])
 
 
     return (
