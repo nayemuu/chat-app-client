@@ -2,13 +2,18 @@
 /* eslint-disable import/prefer-default-export */
 import { apiSlice } from '../api/apiSlice';
 
-export const inboxApi = apiSlice.injectEndpoints({
+
+const apiWithTag = apiSlice.enhanceEndpoints({ addTagTypes: ["conversations"] })
+
+
+export const inboxApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
 
     getConversation: builder.query({
       query: () => ({
         url: '/inbox/conversations',
       }),
+      providesTags: (result, error, arg) => ['conversations']
     }),
 
     serchUser: builder.query({
@@ -23,6 +28,7 @@ export const inboxApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data
       }),
+      invalidatesTags:['conversations'],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           // console.log('inside addConversation arg = ', arg);
